@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+	<world name="default">
+		<plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+			<ros>
+				<namespace>/gazebo</namespace>
+				
+				<argument>link_states:=link_states_demo</argument>
+			</ros>
+
+			<update_rate>1.0</update_rate>
+		</plugin>
+		<!-- A global light source -->
+		<include>
+			<uri>model://sun</uri>
+		</include>
+
+		<!-- simulation table -->
+		<include>
+			<uri>model://simulation_table_with_obstacles</uri>
+		</include>
+
+		<include>
+			<name>Apriltag36_11_00000</name>
+			<pose>1.45 0.0 0.15 1.5708 0 1.5708</pose>
+			<static>true</static>
+			<uri>model://Apriltag36_11_00000</uri>
+		</include>
+	</world>
+
+
+</sdf>

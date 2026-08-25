@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<robot name="limo_properties" xmlns:xacro="http://ros.org/wiki/xacro">
+     <xacro:macro name="limo_wheel" params="parent_prefix wheel_prefix reflect model_lite *joint_pose visual_on:=true fixed_on:=false">
+        <link name="${wheel_prefix}_wheel_link">
+            <inertial>
+                <origin xyz="0 0 0" />
+                <mass value="0.5" />
+                <inertia ixx="0.01055" ixy="0" ixz="0" iyy="0.00075" iyz="0" izz="0.01055" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <xacro:if value="${model_lite}">
+                        <mesh filename="file://$(find limo_description)/meshes/limo_wheel_lite.dae"/>
+                    </xacro:if>
+                    <xacro:unless value="${model_lite}"> 
+                        <mesh filename="file://$(find limo_description)/meshes/limo_wheel.dae"/>
+                    </xacro:unless>                
+                </geometry>
+            </visual>
+            <collision>
+              <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+              <geometry>
+                  <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+              </geometry>
+            </collision>
+        </link>
+
+        <joint name="${wheel_prefix}_wheel" type="continuous">
+            <parent link="${parent_prefix}"/>
+            <child link="${wheel_prefix}_wheel_link"/>
+            <xacro:insert_block name="joint_pose"/>
+            <axis xyz="0 ${reflect*1} 0"/>
+        </joint>
+    </xacro:macro>
+    
+    <xacro:macro name="limo_mecanum_wheel_1" params="parent_prefix wheel_prefix reflect *joint_pose">
+        <link name="${wheel_prefix}_wheel_link">
+            <inertial>
+                <origin xyz="0 0 0" />
+                <mass value="0.5" />
+                <inertia ixx="0.01055" ixy="0" ixz="0" iyy="0.00075" iyz="0" izz="0.01055" />
+            </inertial>
+            <visual>
+                <origin xyz="0.01 -0.064 0.064" rpy="0 0 -1.57" />
+                <geometry>
+                     <mesh filename="file://$(find limo_description)/meshes/mec_wheel_front_left.dae" />
+                </geometry>
+            </visual>
+            <collision>
+              <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+              <geometry>
+                  <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+              </geometry>
+            </collision>
+        </link>
+
+        <joint name="${wheel_prefix}_wheel" type="continuous">
+            <parent link="${parent_prefix}"/>
+            <child link="${wheel_prefix}_wheel_link"/>
+            <xacro:insert_block name="joint_pose"/>
+            <axis xyz="0 ${reflect*1} 0"/>
+        </joint>
+    </xacro:macro>
+
+    <xacro:macro name="limo_mecanum_wheel_2" params="parent_prefix wheel_prefix reflect *joint_pose">
+        <link name="${wheel_prefix}_wheel_link">
+            <inertial>
+                <origin xyz="0 0 0" />
+                <mass value="0.5" />
+                <inertia ixx="0.01055" ixy="0" ixz="0" iyy="0.00075" iyz="0" izz="0.01055" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                      <mesh filename="file://$(find limo_description)/meshes/mec_wheel_front_right.dae" />
+                    
+                </geometry>
+            </visual>
+            <collision>
+              <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+              <geometry>
+                  <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+              </geometry>
+            </collision>
+        </link>
+
+        <joint name="${wheel_prefix}_wheel" type="continuous">
+            <parent link="${parent_prefix}"/>
+            <child link="${wheel_prefix}_wheel_link"/>
+            <xacro:insert_block name="joint_pose"/>
+            <axis xyz="0 ${reflect*1} 0"/>
+        </joint>
+    </xacro:macro>
+    
+    <xacro:macro name="limo_left_steering_hinge" params="parent_prefix wheel_prefix *joint_pose">
+        <link name="${wheel_prefix}">
+            <inertial>
+              <mass value="0.25" />
+              <inertia ixx="0.00525" ixy="0" ixz="0" iyy="0.00035" iyz="0" izz="0.00525" />
+              <origin xyz="0 0 0" />
+
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                  <cylinder length="0.0001" radius="0.0001" />
+                </geometry>
+            </visual>
+            <!-- <collision>
+              <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+              <geometry>
+                  <cylinder length="${wheel_length}" radius="${wheel_radius-0.01}" />
+              </geometry>
+            </collision> -->
+        </link>
+
+        <joint name="${wheel_prefix}_steering" type="revolute">
+            <parent link="${parent_prefix}"/>
+            <child link="${wheel_prefix}"/>
+            <xacro:insert_block name="joint_pose"/>
+            <axis xyz="0 0 1" />
+            <limit lower="-0.523598767" upper="0.523598767" effort="1000" velocity="1.0" />
+            <dynamics damping="0.0" friction="2.0"/>
+
+        </joint>
+
+        <link name="${wheel_prefix}_wheel_link">
+          <inertial>
+            <mass value="0.25" />
+            <inertia ixx="0.00525" ixy="0" ixz="0" iyy="0.00035" iyz="0" izz="0.00525" />
+            <origin xyz="0 0 0" />
+
+          </inertial>
+          <visual>
+              <origin xyz="0 0 0" rpy="0 0 0" />
+              <geometry>
+               <mesh filename="file://$(find limo_description)/meshes/limo_wheel_lite.dae"/>  
+                <!--  <mesh filename="package://limo_description/meshes/limo_optimal_wheels.dae" /> -->
+              </geometry>
+          </visual>
+          <collision>
+            <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+            </geometry>
+          </collision>
+      </link>
+      <joint name="${wheel_prefix}_wheel" type="continuous">
+          <parent link="${wheel_prefix}"/>
+          <child link="${wheel_prefix}_wheel_link"/>
+          <origin xyz="0 0 0" rpy="0 0  0" />
+          <axis xyz="0 1 0"/>
+          <limit effort="100.0" velocity="10.0"/>
+      </joint>
+    </xacro:macro>
+    
+    <!-- Ackerman drive specific -->
+    <xacro:macro name="limo_right_steering_hinge" params="parent_prefix wheel_prefix *joint_pose">
+        <link name="${wheel_prefix}">
+          <inertial>
+            <mass value="0.25" />
+            <inertia ixx="0.00525" ixy="0" ixz="0" iyy="0.00035" iyz="0" izz="0.00525" />
+            <origin xyz="0 0 0" />
+
+          </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                  <cylinder length="0.0001" radius="0.0001" />
+                </geometry>
+            </visual>
+            <!-- <collision>
+              <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+              <geometry>
+                  <cylinder length="${wheel_length}" radius="${wheel_radius-0.01}" />
+              </geometry>
+            </collision> -->
+        </link>
+
+        <joint name="${wheel_prefix}_steering" type="revolute">
+            <parent link="${parent_prefix}"/>
+            <child link="${wheel_prefix}"/>
+            <xacro:insert_block name="joint_pose"/>
+            <axis xyz="0 0 -1"/>
+            <limit lower="-0.523598767" upper="0.523598767" effort="1000" velocity="1.0" />
+            <dynamics damping="0.0" friction="2.0"/>
+        </joint>
+
+        <link name="front_right_wheel_link">
+          <inertial>
+            <mass value="0.25" />
+            <inertia ixx="0.00525" ixy="0" ixz="0" iyy="0.00035" iyz="0" izz="0.00525" />
+            <origin xyz="0 0 0" />
+          </inertial>
+          <visual>
+              <origin xyz="0 0 0" rpy="0 0 0" />
+              <geometry>
+               <mesh filename="file://$(find limo_description)/meshes/limo_wheel_lite.dae"/>  
+              <!--    <mesh filename="package://limo_description/meshes/limo_optimal_wheels.dae" /> -->
+              </geometry>
+          </visual>
+          <collision>
+            <origin xyz="0 ${wheel_length/2} 0" rpy="1.57 0 0" />
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}" />
+            </geometry>
+          </collision>
+      </link>
+
+
+      <joint name="${wheel_prefix}_wheel" type="continuous">
+          <parent link="${wheel_prefix}"/>
+          <child link="front_right_wheel_link"/>
+          <origin xyz="0 0 0" rpy="0 0  0" />
+          <axis xyz="0 -1 0"/>
+          <limit effort="100.0" velocity="10.0"/>
+      </joint>
+    </xacro:macro>
+    
+
+
+    <xacro:macro name="limo_laser" params="parent_prefix frame_prefix *joint_pose">
+        <link name='${frame_prefix}_link'>
+            <pose>0 0 0 0 0 0</pose>
+            <inertial>
+                <mass value="0.1"/>
+                <origin xyz="0.0 0 0" rpy="0 0 0"/>
+                <inertia
+                    ixx="1e-6" ixy="0" ixz="0"
+                    iyy="1e-6" iyz="0"
+                    izz="1e-6"
+                />
+            </inertial>
+            <visual name='laser_visual'>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.02" length="0.01"/>
+                </geometry>
+                <material name='laser_material'>
+                    <color rgba="0.5 0.5 0.5 1.0" />
+                    <ambient>0.1 0.1 0.1 1</ambient>
+                    <diffuse>0.1 0.1 0.2 1</diffuse>
+                    <specular>0 0 0 0</specular>
+                    <emissive>0 0 0 1</emissive>
+                </material>
+            </visual>
+            <collision name='laser_collision'>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder radius="0.032" length="0.016"/>
+                </geometry>
+            </collision>
+        </link>
+        <joint type="fixed" name="laser_joint">
+            <xacro:insert_block name="joint_pose"/>
+            <child link="${frame_prefix}_link"/>
+            <parent link="${parent_prefix}"/>
+        </joint>
+        <gazebo reference="${frame_prefix}_link">
+            <material>Gazebo/Yellow</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="limo_depth_camera" params="parent_prefix frame_prefix *joint_pose">
+        <link name='${frame_prefix}_link'>
+            <pose>0 0 0 0 0 0</pose>
+            <inertial>
+                <mass value="0.1"/>
+                <origin xyz="0.0 0 0" rpy="0 0 0"/>
+                <inertia
+                    ixx="1e-6" ixy="0" ixz="0"
+                    iyy="1e-6" iyz="0"
+                    izz="1e-6"
+                />
+            </inertial>
+            <visual name='depth_camera_visual'>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.02 0.06 0.015"/>
+                </geometry>
+                <material name='depth_camera_material'>
+                    <color rgba="0.5 0.5 0.5 1.0" />
+                    <ambient>0.1 0.1 0.1 1</ambient>
+                    <diffuse>0.1 0.1 0.2 1</diffuse>
+                    <specular>0 0 0 0</specular>
+                    <emissive>0 0 0 1</emissive>
+                </material>
+            </visual>
+            <collision name='depth_camera_collision'>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.02 0.06 0.015"/>
+                </geometry>
+            </collision>
+
+        </link>
+    
+        <joint type="fixed" name="depth_camera_joint">
+            <xacro:insert_block name="joint_pose"/>
+            <child link="${frame_prefix}_link"/>
+            <parent link="${parent_prefix}"/>
+        </joint>
+        <link name="depth_link"></link>
+
+        <joint name="${frame_prefix}_to_camera_joint" type="fixed">
+            <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2} "/>
+            <parent link="${frame_prefix}_link"/>
+            <child link="depth_link"/>
+          </joint>
+
+        <gazebo reference="${frame_prefix}_link">
+            <material>Gazebo/Yellow</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="limo_imu" params="parent_prefix frame_prefix  *joint_pose">
+        <link name='${frame_prefix}_link'>
+            <pose>0 0 0 0 0 0</pose>
+            <inertial>
+                <mass value="0.01"/>
+                <origin xyz="0.0 0 0" rpy="0 0 0"/>
+                <inertia
+                    ixx="1e-7" ixy="0" ixz="0"
+                    iyy="1e-7" iyz="0"
+                    izz="1e-7"
+                />
+            </inertial>
+            <visual name='imu_visual'>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.001 0.001 0.001"/>
+                </geometry>
+                <material name='imu_material'>
+                    <color rgba="0.5 0.5 0.5 1.0" />
+                    <ambient>0.1 0.1 0.1 1</ambient>
+                    <diffuse>0.1 0.1 0.2 1</diffuse>
+                    <specular>0 0 0 0</specular>
+                    <emissive>0 0 0 1</emissive>
+                </material>
+            </visual>
+            <collision name='imu_collision'>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+        <joint type="fixed" name="imu_joint">
+            <xacro:insert_block name="joint_pose"/>
+            <child link="${frame_prefix}_link"/>
+            <parent link="${parent_prefix}"/>
+        </joint>
+        <gazebo reference="${frame_prefix}_link">
+            <material>Gazebo/Yellow</material>
+        </gazebo>
+    </xacro:macro>
+</robot>

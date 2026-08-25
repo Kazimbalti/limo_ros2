@@ -1,0 +1,649 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="simulation_table_with_obstacles">
+    <static>true</static>
+    <link name="floor">
+      <collision name="collision">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>3.0 3.0</size>
+          </plane>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>100</mu>
+              <mu2>50</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>3.0 3.0</size>
+          </plane>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://simulation_table_with_obstacles/materials/scripts/</uri>
+            <uri>model://simulation_table_with_obstacles/materials/textures/</uri>
+            <name>SimulationTableWithObstacle/Background</name>
+          </script>
+        </material>        
+      </visual>
+    </link>
+
+
+    <!-- Ortak: visual z=0.01 (0.02 kalınlık), collision z=0.50 (1.00 yükseklik) -->
+    <!-- Lidar için laser_retro=0.8, temas kuvvetini kapat: collide_without_contact=true -->
+
+    <!-- =================== SOL-ÜST L: SOL KOL (r=0.10) =================== -->
+    <!-- center=(-0.87150, 0.49789), size=(0.22180 x 0.96540) -->
+    <!-- w_mid=0.02180, h_mid=0.76540, x_edge=0.01090, y_edge=0.38270 -->
+    <link name="forbidden_tl_left">
+      <laser_retro>0.8</laser_retro>
+      <pose>-0.87150 0.49789 0 0 0 0</pose>
+
+      <collision name="tl_left_c_mid">
+        <pose>0 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.02180 0.96540 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_left_c_left">
+        <pose>-0.01090 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.20 0.76540 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_left_c_right">
+        <pose>0.01090 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.20 0.76540 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_left_c_ne">
+        <pose>0.01090 0.38270 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_left_c_nw">
+        <pose>-0.01090 0.38270 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_left_c_se">
+        <pose>0.01090 -0.38270 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_left_c_sw">
+        <pose>-0.01090 -0.38270 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+
+      <visual name="tl_left_v_mid">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.02180 0.96540 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_left_v_left">
+        <pose>-0.01090 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.20 0.76540 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_left_v_right">
+        <pose>0.01090 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.20 0.76540 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_left_v_ne">
+        <pose>0.01090 0.38270 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_left_v_nw">
+        <pose>-0.01090 0.38270 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_left_v_se">
+        <pose>0.01090 -0.38270 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_left_v_sw">
+        <pose>-0.01090 -0.38270 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+
+    <!-- =================== SOL-ÜST L: ÜST KOL (r=0.10) =================== -->
+    <!-- center=(-0.39266, 0.78405), size=(0.73588 x 0.39309) -->
+    <!-- w_mid=0.53588, h_mid=0.19309, x_edge=0.26794, y_edge=0.09654 -->
+    <link name="forbidden_tl_top">
+      <laser_retro>0.8</laser_retro>
+      <pose>-0.39266 0.78405 0 0 0 0</pose>
+
+      <collision name="tl_top_c_mid">
+        <pose>0 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.53588 0.39309 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_top_c_left">
+        <pose>-0.26794 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.20 0.19309 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_top_c_right">
+        <pose>0.26794 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.20 0.19309 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_top_c_ne">
+        <pose>0.26794 0.09654 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_top_c_nw">
+        <pose>-0.26794 0.09654 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_top_c_se">
+        <pose>0.26794 -0.09654 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_top_c_sw">
+        <pose>-0.26794 -0.09654 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+
+      <visual name="tl_top_v_mid">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.53588 0.39309 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_top_v_left">
+        <pose>-0.26794 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.20 0.19309 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_top_v_right">
+        <pose>0.26794 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.20 0.19309 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_top_v_ne">
+        <pose>0.26794 0.09654 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_top_v_nw">
+        <pose>-0.26794 0.09654 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_top_v_se">
+        <pose>0.26794 -0.09654 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_top_v_sw">
+        <pose>-0.26794 -0.09654 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+
+    <!-- =================== SOL-ÜST L: SAĞ KOL (r=0.10) =================== -->
+    <!-- center=(-0.13176, 0.30135), size=(0.21408 x 0.57231) -->
+    <!-- w_mid=0.01408, h_mid=0.37231, x_edge=0.00704, y_edge=0.18615 -->
+    <link name="forbidden_tl_right">
+      <laser_retro>0.8</laser_retro>
+      <pose>-0.13176 0.30135 0 0 0 0</pose>
+
+      <collision name="tl_right_c_mid">
+        <pose>0 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.01408 0.57231 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_right_c_left">
+        <pose>-0.00704 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.20 0.37231 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_right_c_right">
+        <pose>0.00704 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.20 0.37231 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_right_c_ne">
+        <pose>0.00704 0.18615 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_right_c_nw">
+        <pose>-0.00704 0.18615 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_right_c_se">
+        <pose>0.00704 -0.18615 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tl_right_c_sw">
+        <pose>-0.00704 -0.18615 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+
+      <visual name="tl_right_v_mid">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.01408 0.57231 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_right_v_left">
+        <pose>-0.00704 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.20 0.37231 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_right_v_right">
+        <pose>0.00704 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.20 0.37231 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_right_v_ne">
+        <pose>0.00704 0.18615 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_right_v_nw">
+        <pose>-0.00704 0.18615 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_right_v_se">
+        <pose>0.00704 -0.18615 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tl_right_v_sw">
+        <pose>-0.00704 -0.18615 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.10</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+
+    <!-- =================== ÜST-SAĞ DİKDÖRTGEN (r=0.12) =================== -->
+    <!-- W=0.55875, H=0.95848, r=0.12 -> w_mid=0.31875, h_mid=0.71848, x_edge=0.159375, y_edge=0.35924 -->
+    <link name="forbidden_tr">
+      <laser_retro>0.8</laser_retro>
+      <pose>0.696965 0.501280 0 0 0 0</pose>
+
+      <collision name="tr_c_mid">
+        <pose>0 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.31875 0.95848 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tr_c_left">
+        <pose>-0.159375 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.24 0.71848 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tr_c_right">
+        <pose>0.159375 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.24 0.71848 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tr_c_ne">
+        <pose>0.159375 0.35924 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tr_c_nw">
+        <pose>-0.159375 0.35924 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tr_c_se">
+        <pose>0.159375 -0.35924 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="tr_c_sw">
+        <pose>-0.159375 -0.35924 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+
+      <visual name="tr_v_mid">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.31875 0.95848 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tr_v_left">
+        <pose>-0.159375 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.24 0.71848 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tr_v_right">
+        <pose>0.159375 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.24 0.71848 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tr_v_ne">
+        <pose>0.159375 0.35924 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tr_v_nw">
+        <pose>-0.159375 0.35924 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tr_v_se">
+        <pose>0.159375 -0.35924 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="tr_v_sw">
+        <pose>-0.159375 -0.35924 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+
+    <!-- =================== ALT-SOL DİKDÖRTGEN (r=0.12) =================== -->
+    <!-- W=0.56372, H=0.56689, r=0.12 -> w_mid=0.32372, h_mid=0.32689, x_edge=0.16186, y_edge=0.163445 -->
+    <link name="forbidden_bl">
+      <laser_retro>0.8</laser_retro>
+      <pose>-0.699490 -0.703075 0 0 0 0</pose>
+
+      <collision name="bl_c_mid">
+        <pose>0 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.32372 0.56689 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="bl_c_left">
+        <pose>-0.16186 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.24 0.32689 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="bl_c_right">
+        <pose>0.16186 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.24 0.32689 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="bl_c_ne">
+        <pose>0.16186 0.163445 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="bl_c_nw">
+        <pose>-0.16186 0.163445 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="bl_c_se">
+        <pose>0.16186 -0.163445 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="bl_c_sw">
+        <pose>-0.16186 -0.163445 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+
+      <visual name="bl_v_mid">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.32372 0.56689 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="bl_v_left">
+        <pose>-0.16186 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.24 0.32689 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="bl_v_right">
+        <pose>0.16186 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.24 0.32689 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="bl_v_ne">
+        <pose>0.16186 0.163445 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="bl_v_nw">
+        <pose>-0.16186 0.163445 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="bl_v_se">
+        <pose>0.16186 -0.163445 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="bl_v_sw">
+        <pose>-0.16186 -0.163445 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+
+    <!-- =================== ALT-SAĞ DİKDÖRTGEN (r=0.12) =================== -->
+    <!-- W=0.95848, H=0.55875, r=0.12 -> w_mid=0.71848, h_mid=0.31875, x_edge=0.35924, y_edge=0.159375 -->
+    <link name="forbidden_br">
+      <laser_retro>0.8</laser_retro>
+      <pose>0.495530 -0.701895 0 0 0 0</pose>
+
+      <collision name="br_c_mid">
+        <pose>0 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.71848 0.55875 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="br_c_left">
+        <pose>-0.35924 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.24 0.31875 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="br_c_right">
+        <pose>0.35924 0 0.50 0 0 0</pose>
+        <geometry><box><size>0.24 0.31875 1.00</size></box></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="br_c_ne">
+        <pose>0.35924 0.159375 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="br_c_nw">
+        <pose>-0.35924 0.159375 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="br_c_se">
+        <pose>0.35924 -0.159375 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+      <collision name="br_c_sw">
+        <pose>-0.35924 -0.159375 0.50 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>1.00</length></cylinder></geometry>
+        <surface><contact><collide_without_contact>true</collide_without_contact></contact></surface>
+      </collision>
+
+      <visual name="br_v_mid">
+        <pose>0 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.71848 0.55875 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="br_v_left">
+        <pose>-0.35924 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.24 0.31875 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="br_v_right">
+        <pose>0.35924 0 0.01 0 0 0</pose>
+        <geometry><box><size>0.24 0.31875 0.02</size></box></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="br_v_ne">
+        <pose>0.35924 0.159375 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="br_v_nw">
+        <pose>-0.35924 0.159375 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="br_v_se">
+        <pose>0.35924 -0.159375 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+      <visual name="br_v_sw">
+        <pose>-0.35924 -0.159375 0.01 0 0 0</pose>
+        <geometry><cylinder><radius>0.12</radius><length>0.02</length></cylinder></geometry>
+        <material><ambient>0 0.6 0 1</ambient><diffuse>0 0.6 0 1</diffuse></material>
+      </visual>
+    </link>
+
+
+
+    
+    <link name="side_1">  
+    <static>true</static>     
+      <pose relative_to="floor">0.0 1.5 0.1 1.57079632679 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+            </ode>
+          </friction>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>0.0</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box>
+           <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+    <link name="side_2">   
+    <static>true</static>    
+      <pose relative_to="floor">0.0 -1.5 0.1 1.57079632679 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+        <surface>
+         <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+            </ode>
+          </friction>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>0.0</threshold>
+          </bounce>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+    <link name="side_3">   
+    <static>true</static>    
+      <pose relative_to="floor">1.5 0.0 0.1 1.57079632679 0 1.57079632679</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+            </ode>
+          </friction>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>0.0</threshold>
+        </bounce>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+    <link name="side_4">   
+      <static>true</static>   
+      <pose relative_to="floor">-1.5 0.0 0.1 1.57079632679 0 1.57079632679</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+            </ode>
+          </friction>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+            <threshold>0.0</threshold>
+        </bounce>
+        </surface>
+      </collision>
+      <visual name="visual">
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <box>
+            <size>3.05 0.3 0.15</size>
+          </box>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

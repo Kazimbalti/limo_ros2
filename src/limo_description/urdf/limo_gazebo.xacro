@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<robot name="limo_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:macro name="limo_wheel_transmission" params="wheel_prefix">
+        <transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <actuator name="${wheel_prefix}_wheel_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+            <joint name="${wheel_prefix}_wheel">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:macro name="limo_steering_hinge_transmission" params="wheel_prefix">
+        <transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <actuator name="${wheel_prefix}_wheel_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+            <joint name="${wheel_prefix}_wheel">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:macro name="gazebo_laser" params="frame_prefix">
+        <gazebo reference="${frame_prefix}_link">
+            <sensor name="laser" type="ray" >
+              <always_on>true</always_on>
+              <pose>0 0 0 0 0 0</pose>
+              <visualize>true</visualize>
+              <update_rate>8.0</update_rate>
+              <ray>
+                <scan>
+                  <horizontal>
+                    <samples>360</samples>
+                    <resolution>1.000000</resolution>
+                    <min_angle>-2.0</min_angle>
+                    <max_angle>2.0</max_angle>
+                  </horizontal>
+                </scan>
+                <range>
+                  <min>0.12</min>
+                  <max>8.0</max>
+                  <resolution>0.02</resolution>
+                </range>
+                <noise>
+                  <type>gaussian</type>
+                  <mean>0.0</mean>
+                  <stddev>0.01</stddev>
+                </noise>
+              </ray>
+              <plugin name="gazebo_ros_laser_sensor" filename="libgazebo_ros_ray_sensor.so">
+                <output_type>sensor_msgs/LaserScan</output_type>
+                <frame_name>laser_link</frame_name>
+                <ros>
+                    <namespace>/</namespace>
+                    <remapping>~/out:=scan</remapping>
+                </ros>
+              </plugin>
+            </sensor>
+          </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="gazebo_depth_camera" params="frame_prefix">
+        <gazebo reference="${frame_prefix}_link">
+          <sensor name="sensor_camera" type="depth">
+            <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>10.0</update_rate>
+            <camera name="limo_camera">
+              <horizontal_fov>1.23918</horizontal_fov>
+              <image>
+                  <width>640</width>
+                  <height>480</height>
+                  <format>B8G8R8</format>
+                  <!--format>R8G8B8</format-->
+              </image>
+              <clip>
+                  <near>0.02</near>
+                  <far>300</far>
+              </clip>
+            </camera>
+
+            <plugin name="gazebo_ros_depth_camera_sensor" filename="libgazebo_ros_camera.so">
+              
+              	<alwaysOn>true</alwaysOn>
+              	<ros>
+                    <!--namespace>/limo</namespace-->
+                    <remapping>limo_camera/image_raw:=limo_camera/image</remapping>
+                    <remapping>limo_camera/image_depth:=limo_camera/depth/camera_image_depth</remapping>
+                    <remapping>limo_camera/camera_info:=limo_camera/camera_info_raw</remapping>
+                    <remapping>limo_camera/camera_info_depth:=limo_camera/camera_info_depth</remapping>
+                    <remapping>limo_camera/points:=limo_camera/camera_points</remapping>
+                </ros>
+                <camera_name>limo_camera</camera_name>
+                <frame_name>depth_link</frame_name>
+                <hack_baseline>0.07</hack_baseline>
+                <min_depth>0.001</min_depth>
+             
+            </plugin>
+        </sensor>
+          </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="gazebo_imu" params="frame_prefix">
+      <gazebo reference="${frame_prefix}_link">
+        <gravity>true</gravity>
+        <sensor name="imu_sensor" type="imu">
+            <always_on>true</always_on>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <pose>0 0 0 0 0 0</pose>
+            <imu>
+                <orientation>
+                    <x>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>2e-3</stddev>
+                        </noise>
+                    </x>
+                    <y>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>2e-3</stddev>
+                        </noise>
+                    </y>
+                    <z>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>2e-3</stddev>
+                        </noise>
+                    </z>
+                </orientation>
+                <angular_velocity>
+                    <x>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>2e-4</stddev>
+                        </noise>
+                    </x>
+                    <y>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>2e-4</stddev>
+                        </noise>
+                    </y>
+                    <z>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>2e-4</stddev>
+                        </noise>
+                    </z>
+                </angular_velocity>
+                <linear_acceleration>
+                    <x>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>1.7e-2</stddev>
+                        </noise>
+                    </x>
+                    <y>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>1.7e-2</stddev>
+                        </noise>
+                    </y>
+                    <z>
+                        <noise type="gaussian">
+                            <mean>0.0</mean>
+                            <stddev>1.7e-2</stddev>
+                        </noise>
+                    </z>
+                </linear_acceleration>
+            </imu>
+            <plugin name="two_wheeled_robot_imu" filename="libgazebo_ros_imu_sensor.so">
+                <initial_orientation_as_reference>false</initial_orientation_as_reference>
+                <frame_name>imu_link</frame_name>
+                <ros>
+                    <namespace>/</namespace>
+                    <remapping>~/out:=imu</remapping>
+                </ros>
+            </plugin>
+        </sensor>
+      </gazebo>
+  </xacro:macro>
+</robot>
